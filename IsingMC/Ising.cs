@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 public class Ising
 {
-    public int[,] Matrix;
+    private int[,] Matrix;
     private int Size;
     public Ising(int size)
     {
@@ -11,7 +11,6 @@ public class Ising
         Matrix = new int[size, size];
         Size = size;
 
-        // fill matrix with ones
         for (int i = 0; i < size; i++)
         {
             for (int j = 0; j < size; j++)
@@ -50,7 +49,12 @@ public class Ising
 
     public int PointEnergy(int x, int y)
     {
-        return -GetNeighbors(x, y).Aggregate((x, y) => x + y) * Matrix[x, y];
+        return -GetNeighbors(x, y).Aggregate((x, y) => x + y) * GetValue(x, y);
+    }
+
+    public int PointEnergyChange(int x, int y)
+    {
+        return 2 * GetValue(x, y) * GetNeighbors(x, y).Aggregate((x, y) => x + y);
     }
 
     public int GetEnergy()
@@ -99,23 +103,15 @@ public class Ising
             var x = rand.Next(0, Size);
             var y = rand.Next(0, Size);
 
-            var Ei = PointEnergy(x, y);
-            Toggle(x, y);
-            var Ef = PointEnergy(x, y);
-
-            var dE = Ef - Ei;
+            var dE = PointEnergyChange(x, y);
 
             var z = rand.NextDouble();
 
             if (0 < dE)
-            {
                 if (z > Math.Exp(-dE / temp))
-                {
-                    Toggle(x, y);
                     continue;
-                }
-            }
 
+            Toggle(x, y);
             E += dE;
             S += 2 * GetValue(x, y);
             energies.Add(E);

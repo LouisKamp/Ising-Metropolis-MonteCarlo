@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -22,7 +21,7 @@ class Program
             var iss = new Ising(size);
             var res = iss.MCSteps(temp, 300000);
 
-            if (res.Item1.Count > 0 && res.Item2.Count > 0)
+            if (res.Item1.Any() && res.Item2.Any())
             {
 
                 var mean_energy = res.Item1.Average() / N;

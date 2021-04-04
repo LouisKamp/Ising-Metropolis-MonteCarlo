@@ -18,20 +18,13 @@ public class IsingTests : IDisposable
     }
 
     [Fact]
-    public void InitializesIsingObject()
-    {
-
-        Assert.Equal(iss.Matrix.Length, size * size);
-    }
-
-    [Fact]
     public void MatrixIsFilledWithOnes()
     {
-        for (int i = 0; i < iss.Matrix.GetLength(0); i++)
+        for (int i = 0; i < size; i++)
         {
-            for (int j = 0; j < iss.Matrix.GetLength(1); j++)
+            for (int j = 0; j < size; j++)
             {
-                Assert.Equal(1, iss.Matrix[i, j]);
+                Assert.Equal(1, iss.GetValue(i, j));
             }
         }
     }
@@ -107,5 +100,18 @@ public class IsingTests : IDisposable
     public void CanGetSpin()
     {
         Assert.Equal(25, iss.GetSpin());
+    }
+
+    [Fact]
+    public void CanCalculateEnergyChange()
+    {
+
+        var dE = iss.PointEnergyChange(1, 1);
+
+        var Ei = iss.PointEnergy(1, 1);
+        iss.Toggle(1, 1);
+        var Ef = iss.PointEnergy(1, 1);
+
+        Assert.Equal(Ef - Ei, dE);
     }
 }
