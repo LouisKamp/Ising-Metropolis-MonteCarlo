@@ -32,7 +32,7 @@ class Program
                 csv.AppendLine($"{temp},{mean_energy},{energy_std},{mean_spin},{spin_std}");
             }
         }
-        File.WriteAllText("text.csv", csv.ToString());
+        File.WriteAllText("data.csv", csv.ToString());
     }
 }
 
