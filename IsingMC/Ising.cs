@@ -69,7 +69,7 @@ public class Ising
             }
         }
 
-        return sum;
+        return sum / 2;
     }
 
     public int GetSpin()
