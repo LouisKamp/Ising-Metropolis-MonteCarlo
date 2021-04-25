@@ -19,7 +19,7 @@ class Program
         {
             double temp = Convert.ToDouble(x) / 100;
             var iss = new Ising(size);
-            var res = iss.MCSteps(temp, 300000);
+            var res = iss.MCSteps(temp, 150 * N);
 
             if (res.Item1.Any() && res.Item2.Any())
             {
