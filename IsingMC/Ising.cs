@@ -87,7 +87,12 @@ public class Ising
         return sum;
 
     }
-
+    /// <summary>
+    /// Will run the metropolis algorithm with the specified temperure "iter" iterations
+    /// </summary>
+    /// <returns>
+    /// The list of energies and spins for every iteration
+    /// </returns>
     public Tuple<List<double>, List<double>> MCSteps(double temp, int iter)
     {
         var energies = new List<double>();
